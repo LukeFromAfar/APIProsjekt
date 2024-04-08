@@ -29,20 +29,29 @@ const updateUI = (data) => {
         results.classList.remove('d-none');
     }
 
+    if(time.classList.contains('d-none')){
+        time.classList.remove('d-none');
+    }
+
     // update weather icons
-    const iconSrc = `img/icons/${weather.WeatherIcon}.svg`;
+    const iconSrc = `../img/icons/${weather.WeatherIcon}.svg`;
     icon.setAttribute('src', iconSrc);
 
     //update time image
 
-    let timeSrc = weather.IsDayTime ? 'img/day.svg' : 'img/night.svg';
+    // let timeSrc = weather.IsDayTime ? '../img/day.svg' : '../img/night.svg';
 
-    // let timeSrc = null;
-    // if(weather.IsDayTime) {
-    //     timeSrc = 'img/day.svg';
-    // } else {
-    //     timeSrc = 'img/night.svg';
-    // }
+
+    let timeSrc = null;
+    if(weather.IsDayTime) {
+        timeSrc = '../img/day.svg';
+        forecastCont.style.backgroundColor = "rgb(230 236 247)";
+        document.querySelector("body"). style.color = "var(--blackText)";
+    } else {
+        timeSrc = '../img/night.svg';
+        forecastCont.style.backgroundColor = "rgb(36 48 70)";
+        document.querySelector("body"). style.color = "var(--whiteText)";
+    }
     time.setAttribute('src', timeSrc);
 
 }

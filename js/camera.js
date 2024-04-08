@@ -87,3 +87,102 @@ prevButton.addEventListener('click', () => {
     currentImageElement.setAttribute('data-index', index - 1);
   }
 });
+
+const zoomInButton = document.getElementById('zoomIn');
+const zoomOutButton = document.getElementById('zoomOut');
+const resetZoomButton = document.getElementById('resetZoom');
+
+let scale = 1; // Initial scale
+let flipped = false; // Initial flip state
+
+// Function to apply zoom and flip
+function applyTransformations() {
+  const flipTransform = flipped ? 'scaleX(-1)' : ''; // Apply horizontal flip if needed
+  const scaleTransform = `scale(${scale})`; // Apply current scale
+  cameraVideoStream.style.transform = `${flipTransform} ${scaleTransform}`; // Combine transformations
+}
+
+// Function to toggle flip
+function toggleFlip() {
+  cameraVideoStream.classList.toggle('flipped');
+  // Ensure the current scale is maintained when flipping
+  applyCurrentScale();
+}
+
+// Function to zoom in
+function zoomIn() {
+  scale = 3; // Increase scale by 3x
+  applyTransformations();
+  removeActiveClassFromButtons();
+  this.classList.add('active'); // 'this' refers to the zoomInButton element in this context
+};
+
+// Function to zoom out
+function zoomOut() {
+  scale = 0.5; // Decrease scale by 0.5x (half)
+  applyTransformations();
+  removeActiveClassFromButtons();
+  this.classList.add('active'); // 'this' refers to the zoomOutButton element in this context
+};
+
+// Function to reset zoom to 1x
+function resetZoom() {
+  scale = 1; // Reset scale to 1
+  applyTransformations();
+  removeActiveClassFromButtons();
+  this.classList.add('active'); // 'this' refers to the resetZoomButton element in this context
+};
+
+
+function applyCurrentScale() {
+  const currentTransform = cameraVideoStream.classList.contains('flipped') ? 'scaleX(-1)' : '';
+  cameraVideoStream.style.transform = `${currentTransform} scale(${scale})`;
+}
+
+// Add event listeners to the buttons
+zoomInButton.addEventListener('click', zoomIn);
+zoomOutButton.addEventListener('click', zoomOut);
+resetZoomButton.addEventListener('click', resetZoom);
+
+// Function to remove 'active' class from all buttons
+function removeActiveClassFromButtons() {
+  // Query all buttons again in case more buttons have been added dynamically
+  const allButtons = document.querySelectorAll('button');
+  allButtons.forEach(button => {
+    button.classList.remove('active');
+  });
+}
+
+// Example button for flipping the image
+const flipButton = document.getElementById('switch-device');
+flipButton.addEventListener('click', toggleFlip);
+
+// let scale = 1; // Initial scale
+
+// // Function to reset zoom to 1x
+// function resetZoom() {
+//   scale = 1; // Reset scale to 1
+//   applyZoom();
+// }
+
+// // Function to zoom in
+// function zoomIn() {
+//   scale == 3; // Increase scale by 3x
+//   applyZoom();
+// }
+
+// // Function to zoom out
+// function zoomOut() {
+//   scale == 0.5; // Decrease scale by 0.5x (half)
+//   applyZoom();
+// }
+
+// // Apply zoom by updating the transform style
+// function applyZoom() {
+//   cameraVideoStream.style.transform = `scale(${scale})`;
+// }
+
+// // Add event listeners to the zoom buttons
+// zoomInButton.addEventListener('click', zoomIn);
+// zoomOutButton.addEventListener('click', zoomOut);
+// resetZoomButton.addEventListener('click', resetZoom);

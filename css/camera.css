@@ -103,6 +103,7 @@ button {
     align-items: center;
     justify-content: space-around;
     width: 100%;
+    padding: 2em;
 }
 .previous-shots {
     background-position: center;
@@ -121,7 +122,8 @@ button {
 .shutter:active {
     transform: scale(0.8);
 }
-.switch-device {
+
+#switch-device {
     height: 55px;
     width: 55px;
     border-radius: 50%;
@@ -160,4 +162,8 @@ button {
 .gallery-view button#close-gallery {
     left: 5%;
     top: 5%;
+}
+
+.flipped {
+    transform: scaleX(-1);
 }
